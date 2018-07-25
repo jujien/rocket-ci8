@@ -4,20 +4,20 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class GameCanvas extends JPanel {
 
-    private BufferedImage starImage;
+    private Star star;
     private BufferedImage backBuffered;
     private BufferedImage playerImage;
-
-    public int positionXStar = 1024;
-    public int positionYStar = 200;
 
     public int positionXPlayer = 600;
     public int positionYPlayer = 200;
 
     private Graphics graphics;
+
+    private Random random = new Random();
 
 
     public GameCanvas() {
@@ -37,25 +37,58 @@ public class GameCanvas extends JPanel {
     }
 
     private void setupCharacter() {
-        this.starImage = this.loadImage("resources/images/star.png");
-
+        this.setupStar();
         this.playerImage = this.loadImage("resources/images/circle.png");
+    }
+
+    private void setupStar() {
+        this.star = new Star();
+        this.star.x = 1024;
+        this.star.y = this.random.nextInt(600);
+        this.star.image = this.loadImage("resources/images/star.png");
+        this.star.width = 5;
+        this.star.height = 5;
+        this.star.velocityX = this.random.nextInt(3) + 1;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         g.drawImage(this.backBuffered, 0, 0, null);
-
     }
 
     public void renderAll() {
         this.renderBackground();
 
-        this.graphics.drawImage(this.starImage, this.positionXStar, this.positionYStar, 5, 5, null);
+        this.star.render(this.graphics);
 
         this.graphics.drawImage(this.playerImage, this.positionXPlayer, this.positionYPlayer, 20, 20, null);
 
         this.repaint();
+    }
+
+    public void runAll() {
+        this.star.run();
+        this.playerMove();
+    }
+
+
+    private void playerMove() {
+        if (this.positionXPlayer > 1024) {
+            this.positionXPlayer = 0;
+            this.positionYPlayer = this.random.nextInt(600);
+        }
+        if (this.positionXPlayer < 0) {
+            this.positionXPlayer = 1024;
+            this.positionYPlayer = this.random.nextInt(600);
+        }
+        if (this.positionYPlayer > 600) {
+            this.positionXPlayer = this.random.nextInt(1024);
+            this.positionYPlayer = 0;
+        }
+        if (this.positionYPlayer < 0) {
+            this.positionXPlayer = this.random.nextInt(1024);
+            this.positionYPlayer = 600;
+        }
     }
 
     private void renderBackground() {

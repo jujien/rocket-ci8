@@ -39,10 +39,10 @@ public class GameWindow extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    gameCanvas.positionXPlayer -= 3;
+                    gameCanvas.positionXPlayer -= 7;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    gameCanvas.positionXPlayer += 3;
+                    gameCanvas.positionXPlayer += 7;
                 }
             }
 
@@ -68,7 +68,7 @@ public class GameWindow extends JFrame {
         while (true) {
             long currentTime = System.nanoTime();
             if (currentTime - this.lastTime >= 17_000_000) {
-                this.gameCanvas.positionXStar -= 3;
+                this.gameCanvas.runAll();
                 this.gameCanvas.renderAll();
                 this.lastTime = currentTime;
             }
