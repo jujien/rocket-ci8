@@ -12,9 +12,24 @@ public class GameWindow extends JFrame {
     public GameWindow() {
         this.setSize(1024, 600);
 
+        this.setupGameCanvas();
+
+        this.event();
+
+        this.setVisible(true);
+    }
+
+    private void setupGameCanvas() {
         this.gameCanvas = new GameCanvas();
         this.add(this.gameCanvas);
+    }
 
+    private void event() {
+        this.keyboardEvent();
+        this.windowEvent();
+    }
+
+    private void keyboardEvent() {
         this.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -38,15 +53,15 @@ public class GameWindow extends JFrame {
                 }
             }
         });
+    }
 
+    private void windowEvent() {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(1);
             }
         });
-
-        this.setVisible(true);
     }
 
     public void gameLoop() {
