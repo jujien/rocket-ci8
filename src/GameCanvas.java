@@ -4,11 +4,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GameCanvas extends JPanel {
 
-    private Star star;
+    private List<Star> stars;
     private BufferedImage backBuffered;
     private BufferedImage playerImage;
 
@@ -18,6 +20,8 @@ public class GameCanvas extends JPanel {
     private Graphics graphics;
 
     private Random random = new Random();
+
+    private int timeIntervalStar = 0;
 
 
     public GameCanvas() {
@@ -42,13 +46,7 @@ public class GameCanvas extends JPanel {
     }
 
     private void setupStar() {
-        this.star = new Star();
-        this.star.x = 1024;
-        this.star.y = this.random.nextInt(600);
-        this.star.image = this.loadImage("resources/images/star.png");
-        this.star.width = 5;
-        this.star.height = 5;
-        this.star.velocityX = this.random.nextInt(3) + 1;
+        this.stars = new ArrayList<>();
     }
 
     @Override
@@ -59,7 +57,7 @@ public class GameCanvas extends JPanel {
     public void renderAll() {
         this.renderBackground();
 
-        this.star.render(this.graphics);
+        this.stars.forEach(star -> star.render(graphics));
 
         this.graphics.drawImage(this.playerImage, this.positionXPlayer, this.positionYPlayer, 20, 20, null);
 
@@ -67,8 +65,26 @@ public class GameCanvas extends JPanel {
     }
 
     public void runAll() {
-        this.star.run();
+        this.createStar();
+        this.stars.forEach(star -> star.run());
         this.playerMove();
+    }
+
+    private void createStar() {
+        if (this.timeIntervalStar == 30) {
+            Star star = new Star();
+            star.x = 1024;
+            star.y = this.random.nextInt(600);
+            star.image = this.loadImage("resources/images/star.png");
+            star.width = 5;
+            star.height = 5;
+            star.velocityX = this.random.nextInt(3) + 1;
+            this.stars.add(star);
+            this.timeIntervalStar = 0;
+        } else {
+            this.timeIntervalStar += 1;
+        }
+
     }
 
 

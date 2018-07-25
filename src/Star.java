@@ -13,6 +13,10 @@ public class Star {
 
     public int velocityX;
 
+    public Star() {
+
+    }
+
     public void run() {
         this.x -= this.velocityX;
     }
