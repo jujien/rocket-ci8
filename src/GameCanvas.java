@@ -13,10 +13,8 @@ public class GameCanvas extends JPanel {
     private List<Star> stars;
     private List<Enemy> enemies;
     private BufferedImage backBuffered;
-    private BufferedImage playerImage;
 
-    public int positionXPlayer = 600;
-    public int positionYPlayer = 200;
+    public Player player;
 
     private Graphics graphics;
 
@@ -44,8 +42,14 @@ public class GameCanvas extends JPanel {
 
     private void setupCharacter() {
         this.setupStar();
-        this.playerImage = this.loadImage("resources/images/circle.png");
         this.enemies = new ArrayList<>();
+        this.setupPlayer();
+    }
+
+    private void setupPlayer() {
+        this.player = new Player();
+        this.player.position.set(200, 300);
+        this.player.velocity.set(3.5f, 0);
     }
 
     private void setupStar() {
@@ -62,7 +66,7 @@ public class GameCanvas extends JPanel {
 
         this.stars.forEach(star -> star.render(graphics));
 
-        this.graphics.drawImage(this.playerImage, this.positionXPlayer, this.positionYPlayer, 20, 20, null);
+        this.player.render(this.graphics);
 
         this.enemies.forEach(enemy -> enemy.render(graphics));
         this.repaint();
@@ -75,18 +79,17 @@ public class GameCanvas extends JPanel {
         this.createEnemy();
         this.enemies.forEach(enemy -> enemy.run());
 
-        this.playerMove();
+        this.player.run();
     }
 
     private void createStar() {
         if (this.timeIntervalStar == 30) {
             Star star = new Star();
-            star.x = 1024;
-            star.y = this.random.nextInt(600);
+            star.position.set(1024, this.random.nextInt(600));
             star.image = this.loadImage("resources/images/star.png");
             star.width = 5;
             star.height = 5;
-            star.velocityX = this.random.nextInt(3) + 1;
+            star.velocity.set(this.random.nextInt(3) + 1, 0);
             this.stars.add(star);
             this.timeIntervalStar = 0;
         } else {
@@ -109,25 +112,6 @@ public class GameCanvas extends JPanel {
             this.timeIntervalEnemy = 0;
         } else {
             this.timeIntervalEnemy += 1;
-        }
-    }
-
-    private void playerMove() {
-        if (this.positionXPlayer > 1024) {
-            this.positionXPlayer = 0;
-            this.positionYPlayer = this.random.nextInt(600);
-        }
-        if (this.positionXPlayer < 0) {
-            this.positionXPlayer = 1024;
-            this.positionYPlayer = this.random.nextInt(600);
-        }
-        if (this.positionYPlayer > 600) {
-            this.positionXPlayer = this.random.nextInt(1024);
-            this.positionYPlayer = 0;
-        }
-        if (this.positionYPlayer < 0) {
-            this.positionXPlayer = this.random.nextInt(1024);
-            this.positionYPlayer = 600;
         }
     }
 
