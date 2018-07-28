@@ -11,6 +11,7 @@ import java.util.Random;
 public class GameCanvas extends JPanel {
 
     private List<Star> stars;
+    private List<Enemy> enemies;
     private BufferedImage backBuffered;
     private BufferedImage playerImage;
 
@@ -22,6 +23,7 @@ public class GameCanvas extends JPanel {
     private Random random = new Random();
 
     private int timeIntervalStar = 0;
+    private int timeIntervalEnemy = 0;
 
 
     public GameCanvas() {
@@ -43,6 +45,7 @@ public class GameCanvas extends JPanel {
     private void setupCharacter() {
         this.setupStar();
         this.playerImage = this.loadImage("resources/images/circle.png");
+        this.enemies = new ArrayList<>();
     }
 
     private void setupStar() {
@@ -61,12 +64,17 @@ public class GameCanvas extends JPanel {
 
         this.graphics.drawImage(this.playerImage, this.positionXPlayer, this.positionYPlayer, 20, 20, null);
 
+        this.enemies.forEach(enemy -> enemy.render(graphics));
         this.repaint();
     }
 
     public void runAll() {
         this.createStar();
         this.stars.forEach(star -> star.run());
+
+        this.createEnemy();
+        this.enemies.forEach(enemy -> enemy.run());
+
         this.playerMove();
     }
 
@@ -87,6 +95,22 @@ public class GameCanvas extends JPanel {
 
     }
 
+    private void createEnemy() {
+        if (this.timeIntervalEnemy == 50) {
+            Enemy enemy = new Enemy();
+            enemy.x = this.random.nextInt(1024);
+            enemy.y = this.random.nextInt(600);
+            enemy.width = 20;
+            enemy.height = 20;
+            enemy.image = this.loadImage("resources/images/circle.png");
+            enemy.velocityX = this.random.nextInt(3) + 1;
+            enemy.velocityY = this.random.nextInt(3) + 1;
+            this.enemies.add(enemy);
+            this.timeIntervalEnemy = 0;
+        } else {
+            this.timeIntervalEnemy += 1;
+        }
+    }
 
     private void playerMove() {
         if (this.positionXPlayer > 1024) {

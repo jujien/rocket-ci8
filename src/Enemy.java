@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Star {
+public class Enemy {
 
     public BufferedImage image;
 
@@ -12,19 +12,19 @@ public class Star {
     public int height;
 
     public int velocityX;
+    public int velocityY;
 
-    public Star() {
+    public Enemy() {
 
     }
 
     public void run() {
-        this.x -= this.velocityX;
+        this.x += this.velocityX;
+        this.y += this.velocityY;
     }
 
     public void render(Graphics graphics) {
         graphics.drawImage(this.image, this.x, this.y, this.width, this.height, null);
 
     }
-
-
 }
