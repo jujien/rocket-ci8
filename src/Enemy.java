@@ -48,6 +48,8 @@ public class Enemy {
         } else {
             this.timeIntervalBullet += 1;
         }
+
+        this.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.run());
     }
 
     public void render(Graphics graphics) {
