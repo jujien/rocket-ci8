@@ -39,11 +39,15 @@ public class GameWindow extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-
+                    gameCanvas.player.angle -= 5.0;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-
+                    gameCanvas.player.angle += 5.0;
                 }
+
+                gameCanvas.player.velocity.set(
+                        new Vector2D(3.5f, 0).rotate(gameCanvas.player.angle)
+                );
             }
 
             @Override
