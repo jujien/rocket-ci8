@@ -9,6 +9,7 @@ public class Player {
 
     public double angle = 0.0;
     private Random random = new Random();
+    public PlayerShoot playerShoot;
 
     public Player() {
         this.position = new Vector2D();
@@ -19,12 +20,14 @@ public class Player {
                 new Vector2D(0, 16),
                 new Vector2D(20, 8)
         );
+        this.playerShoot = new PlayerAttack();
     }
 
     public void run() {
         this.position.addUp(this.velocity);
         ((PolygonRenderer) this.renderer).angle = this.angle;
         this.backToScreen();
+        this.playerShoot.run(this);
     }
 
     private void backToScreen() {
@@ -36,5 +39,8 @@ public class Player {
 
     public void render(Graphics graphics) {
         this.renderer.render(graphics, this.position);
+        ((PlayerAttack) this.playerShoot)
+                .bulletPlayers
+                .forEach(bulletPlayer -> bulletPlayer.render(graphics));
     }
 }
