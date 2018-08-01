@@ -6,10 +6,7 @@ public class Player {
 
     public Vector2D position;
     public Vector2D velocity;
-
-    private List<Vector2D> vertices;
-
-    private Polygon polygon;
+    public Renderer renderer;
 
     public double angle = 0.0;
 
@@ -17,12 +14,11 @@ public class Player {
         this.position = new Vector2D();
         this.velocity = new Vector2D();
 
-        this.vertices = Arrays.asList(
+        this.renderer = new PolygonRenderer(Color.RED,
                 new Vector2D(),
                 new Vector2D(0, 16),
                 new Vector2D(20, 8)
         );
-        this.polygon = new Polygon();
     }
 
     public void run() {
@@ -30,27 +26,6 @@ public class Player {
     }
 
     public void render(Graphics graphics) {
-        graphics.setColor(Color.RED);
-
-        this.updateTriangle();
-
-        graphics.fillPolygon(this.polygon);
-    }
-
-    private void updateTriangle() {
-        this.polygon.reset();
-        Vector2D center = this.vertices
-                .stream()
-                .reduce(new Vector2D(), (v1, v2) -> v1.add(v2))
-                .multiply(1.0f / (float) this.vertices.size())
-                .rotate(this.angle);
-
-        Vector2D translate = this.position.subtract(center);
-
-        this.vertices
-                .stream()
-                .map(vector2D -> vector2D.rotate(angle))
-                .map(vector2D -> vector2D.add(translate))
-                .forEach(vector2D -> polygon.addPoint((int) vector2D.x, (int) vector2D.y));
+        this.renderer.render(graphics, this.position);
     }
 }

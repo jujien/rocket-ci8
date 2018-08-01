@@ -13,6 +13,7 @@ public class GameCanvas extends JPanel {
     private List<Star> stars;
     private List<Enemy> enemies;
     private BufferedImage backBuffered;
+    private Background background = new Background();
 
     public Player player;
 
@@ -62,7 +63,7 @@ public class GameCanvas extends JPanel {
     }
 
     public void renderAll() {
-        this.renderBackground();
+        this.background.render(this.graphics);
 
         this.stars.forEach(star -> star.render(graphics));
 
@@ -101,23 +102,16 @@ public class GameCanvas extends JPanel {
     private void createEnemy() {
         if (this.timeIntervalEnemy == 50) {
             Enemy enemy = new Enemy();
-            enemy.x = this.random.nextInt(1024);
-            enemy.y = this.random.nextInt(600);
+            enemy.position.set(this.random.nextInt(1024), this.random.nextInt(600));
             enemy.width = 20;
             enemy.height = 20;
             enemy.image = this.loadImage("resources/images/circle.png");
-            enemy.velocityX = this.random.nextInt(3) + 1;
-            enemy.velocityY = this.random.nextInt(3) + 1;
+            enemy.velocity.set(this.random.nextInt(3) + 1, this.random.nextInt(3) + 1);
             this.enemies.add(enemy);
             this.timeIntervalEnemy = 0;
         } else {
             this.timeIntervalEnemy += 1;
         }
-    }
-
-    private void renderBackground() {
-        this.graphics.setColor(Color.BLACK);
-        this.graphics.fillRect(0, 0, 1024, 600);
     }
 
     private BufferedImage loadImage(String path) {
