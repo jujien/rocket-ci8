@@ -82,8 +82,8 @@ public class GameCanvas extends JPanel {
         this.createStar();
         this.stars.forEach(star -> star.run());
 
-//        this.createEnemy();
-//        this.enemies.forEach(enemy -> enemy.run());
+        this.createEnemy();
+        this.enemies.forEach(enemy -> enemy.run());
 
         this.player.run();
 

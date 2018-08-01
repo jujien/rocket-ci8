@@ -33,15 +33,19 @@ public class Enemy {
 
     private void shoot() {
         if (this.timeIntervalBullet == 30) {
-            BulletEnemy bulletEnemy = new BulletEnemy();
-            try {
-                bulletEnemy.image = ImageIO.read(new File("resources/images/circle.png"));
-            } catch (IOException e) {
-                e.printStackTrace();
+            for (double angle = 0.0; angle < 360.0; angle += 360.0 / 15) {
+                BulletEnemy bulletEnemy = new BulletEnemy();
+                try {
+                    bulletEnemy.image = ImageIO.read(new File("resources/images/circle.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                bulletEnemy.position.set(this.position);
+                bulletEnemy.velocity.set(
+                        (new Vector2D(2, 0)).rotate(angle)
+                );
+                this.bulletEnemies.add(bulletEnemy);
             }
-            bulletEnemy.position.set(this.position);
-            bulletEnemy.velocity.set(2, 0);
-            this.bulletEnemies.add(bulletEnemy);
             this.timeIntervalBullet = 0;
         } else {
             this.timeIntervalBullet += 1;
