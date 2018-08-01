@@ -15,6 +15,7 @@ public class GameCanvas extends JPanel {
     private BufferedImage backBuffered;
     private Background background = new Background();
 
+
     public Player player;
 
     private Graphics graphics;
@@ -23,7 +24,7 @@ public class GameCanvas extends JPanel {
 
     private int timeIntervalStar = 0;
     private int timeIntervalEnemy = 0;
-
+    private EnemyFollow enemyFollow;
 
     public GameCanvas() {
 
@@ -45,6 +46,8 @@ public class GameCanvas extends JPanel {
         this.setupStar();
         this.enemies = new ArrayList<>();
         this.setupPlayer();
+        this.enemyFollow = new EnemyFollow();
+        this.enemyFollow.position.set(this.random.nextInt(1024), this.random.nextInt(600));
     }
 
     private void setupPlayer() {
@@ -70,6 +73,8 @@ public class GameCanvas extends JPanel {
         this.player.render(this.graphics);
 
         this.enemies.forEach(enemy -> enemy.render(graphics));
+
+        this.enemyFollow.render(this.graphics);
         this.repaint();
     }
 
@@ -77,10 +82,13 @@ public class GameCanvas extends JPanel {
         this.createStar();
         this.stars.forEach(star -> star.run());
 
-        this.createEnemy();
-        this.enemies.forEach(enemy -> enemy.run());
+//        this.createEnemy();
+//        this.enemies.forEach(enemy -> enemy.run());
 
         this.player.run();
+
+        this.enemyFollow.update(this.player.position);
+        this.enemyFollow.run();
     }
 
     private void createStar() {
