@@ -5,6 +5,7 @@ public class Background {
     public Vector2D position;
 
     public Background() {
+        this.position = new Vector2D();
     }
 
     public void render(Graphics graphics) {
