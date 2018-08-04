@@ -1,18 +1,14 @@
 package game.enemy;
 
 import base.FrameCounter;
+import base.GameObjectManager;
 import base.Vector2D;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class EnemyAttack implements EnemyShoot {
 
-    public List<BulletEnemy> bulletEnemies;
     private FrameCounter frameCounter;
 
     public EnemyAttack() {
-        this.bulletEnemies = new ArrayList<>();
         this.frameCounter = new FrameCounter(30);
     }
 
@@ -25,11 +21,9 @@ public class EnemyAttack implements EnemyShoot {
                 bulletEnemy.velocity.set(
                         (new Vector2D(2, 0)).rotate(angle)
                 );
-                this.bulletEnemies.add(bulletEnemy);
+                GameObjectManager.instance.add(bulletEnemy);
             }
             this.frameCounter.reset();
         }
-
-        this.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.run());
     }
 }

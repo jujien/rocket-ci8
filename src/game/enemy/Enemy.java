@@ -24,14 +24,4 @@ public class Enemy extends GameObject {
         this.position.addUp(this.velocity);
         this.enemyShoot.run(this);
     }
-
-
-    @Override
-    public void render(Graphics graphics) {
-        super.render(graphics);
-        ((EnemyAttack) this.enemyShoot)
-                .bulletEnemies
-                .forEach(bulletEnemy -> bulletEnemy.render(graphics));
-
-    }
 }
