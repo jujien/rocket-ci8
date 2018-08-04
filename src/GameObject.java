@@ -11,6 +11,7 @@ public class GameObject {
     }
 
     public void run() {
+
     }
 
     public void render(Graphics graphics) {

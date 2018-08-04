@@ -1,11 +1,9 @@
 import java.awt.*;
 import java.util.Random;
 
-public class Player {
+public class Player extends GameObject {
 
-    public Vector2D position;
     public Vector2D velocity;
-    public Renderer renderer;
 
     public double angle = 0.0;
     private Random random = new Random();
@@ -23,7 +21,9 @@ public class Player {
         this.playerShoot = new PlayerAttack();
     }
 
+    @Override
     public void run() {
+        super.run();
         this.position.addUp(this.velocity);
         ((PolygonRenderer) this.renderer).angle = this.angle;
         this.backToScreen();
@@ -37,8 +37,9 @@ public class Player {
         if (this.position.y < 0) this.position.set(this.random.nextInt(1024), 600);
     }
 
+    @Override
     public void render(Graphics graphics) {
-        this.renderer.render(graphics, this.position);
+        super.render(graphics);
         ((PlayerAttack) this.playerShoot)
                 .bulletPlayers
                 .forEach(bulletPlayer -> bulletPlayer.render(graphics));
