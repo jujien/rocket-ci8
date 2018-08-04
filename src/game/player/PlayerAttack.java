@@ -1,3 +1,7 @@
+package game.player;
+
+import base.FrameCounter;
+
 import java.util.ArrayList;
 import java.util.List;
 

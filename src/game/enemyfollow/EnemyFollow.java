@@ -1,4 +1,8 @@
-import java.awt.*;
+package game.enemyfollow;
+
+import base.GameObject;
+import base.Vector2D;
+import renderer.ImageRenderer;
 
 public class EnemyFollow extends GameObject {
 
