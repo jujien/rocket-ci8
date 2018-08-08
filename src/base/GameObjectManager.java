@@ -1,5 +1,7 @@
 package base;
 
+import game.player.Player;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,14 @@ public class GameObjectManager {
 
     public void renderAll(Graphics graphics) {
         this.list.forEach(gameObject -> gameObject.render(graphics));
+    }
+
+    public Player findPlayer() {
+        return (Player) this.list
+                .stream()
+                .filter(gameObject -> gameObject instanceof Player)
+                .findFirst()
+                .orElse(null);
     }
 
 }
