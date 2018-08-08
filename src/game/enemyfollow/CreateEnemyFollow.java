@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class CreateEnemyFollow extends GameObject {
 
-    private FrameCounter frameCounter = new FrameCounter(40);
+    private FrameCounter frameCounter = new FrameCounter(400);
     private Random random = new Random();
 
     @Override

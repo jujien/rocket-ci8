@@ -14,6 +14,8 @@ public class GameObject {
 
     public List<Attribute> attributes;
 
+    public boolean isAlive = true;
+
     public GameObject() {
         this.position = new Vector2D();
         this.attributes = new ArrayList<>();
