@@ -14,7 +14,6 @@ public class Player extends GameObject {
 
     public Player() {
         this.velocity = new Vector2D();
-
         this.renderer = new PolygonRenderer(Color.RED,
                 new Vector2D(),
                 new Vector2D(0, 16),

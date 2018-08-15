@@ -4,6 +4,7 @@ import game.enemyfollow.EnemyFollow;
 import game.player.BulletPlayer;
 import game.player.Player;
 import physic.BoxCollider;
+import physic.PhysicBody;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -49,14 +50,14 @@ public class GameObjectManager {
                 .orElse(null);
     }
 
-    public EnemyFollow checkCollision(BulletPlayer bulletPlayer) {
-        return (EnemyFollow) this.list
+    public <T extends GameObject & PhysicBody> T checkCollision(BoxCollider boxCollider, Class<T> cls) {
+        return (T) this.list
                 .stream()
                 .filter(gameObject -> gameObject.isAlive)
-                .filter(gameObject -> gameObject instanceof EnemyFollow)
+                .filter(gameObject -> cls.isInstance(gameObject))
                 .filter(gameObject -> {
-                    BoxCollider other = ((EnemyFollow) gameObject).boxCollider;
-                    return bulletPlayer.boxCollider.checkCollision(other);
+                    BoxCollider other = ((T) gameObject).getBoxCollider();
+                    return boxCollider.checkCollision(other);
                 })
                 .findFirst()
                 .orElse(null);
