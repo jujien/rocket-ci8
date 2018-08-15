@@ -63,4 +63,28 @@ public class GameObjectManager {
                 .orElse(null);
     }
 
+    public <T extends GameObject> T recycle(Class<T> cls) {
+        T object = (T) this.list
+                .stream()
+                .filter(gameObject -> !gameObject.isAlive)
+                .filter(gameObject -> cls.isInstance(gameObject))
+                .findFirst()
+                .orElse(null);
+
+        if (object != null) {
+            object.isAlive = true;
+            return object;
+        } else {
+            try {
+                object = cls.newInstance();
+                this.add(object);
+                return object;
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+    }
+
 }
