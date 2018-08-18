@@ -16,6 +16,7 @@ public class PlayerShoot implements Attribute<Player> {
             bulletPlayer.velocity.set(gameObject.velocity.copy()).multiply(1.5f);
 
             GameObjectManager.instance.add(bulletPlayer);
+
             this.frameCounter.reset();
         }
     }
