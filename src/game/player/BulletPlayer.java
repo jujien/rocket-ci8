@@ -3,6 +3,7 @@ package game.player;
 import base.GameObject;
 import base.GameObjectManager;
 import base.Vector2D;
+import game.enemy.Enemy;
 import game.enemyfollow.EnemyFollow;
 import physic.BoxCollider;
 import physic.PhysicBody;
@@ -21,7 +22,8 @@ public class BulletPlayer extends GameObject implements PhysicBody {
         this.renderer = new ImageRenderer( "resources/images/circle.png", 5, 5);
         this.boxCollider = new BoxCollider(5, 5);
         this.runHitObject = new RunHitObject(
-                EnemyFollow.class
+                EnemyFollow.class,
+                Enemy.class
         );
     }
 
