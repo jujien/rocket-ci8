@@ -6,8 +6,13 @@ import game.enemy.Enemy;
 import game.enemyfollow.EnemyFollow;
 import game.player.Player;
 import game.star.Star;
+import util.Utils;
+
+import javax.sound.sampled.Clip;
 
 public class GamePlayScene implements Scene {
+
+    private Clip clip;
 
     @Override
     public void init() {
@@ -16,6 +21,9 @@ public class GamePlayScene implements Scene {
         GameObjectManager.instance.recycle(EnemyFollow.class);
         GameObjectManager.instance.recycle(Enemy.class);
         this.setupPlayer();
+        this.clip = Utils.loadAudio("resources/audio/shot.wav");
+//        this.clip.loop(-1);
+//        this.clip.start();
     }
 
     private void setupPlayer() {
@@ -27,5 +35,6 @@ public class GamePlayScene implements Scene {
     @Override
     public void deinit() {
         GameObjectManager.instance.clear();
+        this.clip.stop();
     }
 }

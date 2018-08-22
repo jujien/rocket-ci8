@@ -28,7 +28,7 @@ public class Player extends GameObject implements PhysicBody {
                 new Vector2D(0, 16),
                 new Vector2D(20, 8)
         );
-//        this.attributes.add(new PlayerShoot());
+        this.attributes.add(new PlayerShoot());
         this.attributes.add(new PlayerMove());
         this.boxCollider = new BoxCollider(20, 16);
         this.runHitObject = new RunHitObject(
