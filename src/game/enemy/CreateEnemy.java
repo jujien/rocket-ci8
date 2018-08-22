@@ -26,6 +26,7 @@ public class CreateEnemy extends GameObject {
                 Enemy enemy = GameObjectManager.instance.recycle(Enemy.class);
                 enemy.position.set(random.nextInt(1024), random.nextInt(600));
                 enemy.velocity.set(random.nextInt(3) + 1, random.nextInt(3) + 1);
+                enemy.configAction();
                 enemies.add(enemy);
                 return true;
             }

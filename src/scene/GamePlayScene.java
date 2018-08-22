@@ -1,6 +1,7 @@
 package scene;
 
 import base.GameObjectManager;
+import game.Demo;
 import game.background.Background;
 import game.enemy.Enemy;
 import game.enemyfollow.EnemyFollow;
@@ -21,6 +22,7 @@ public class GamePlayScene implements Scene {
         GameObjectManager.instance.recycle(EnemyFollow.class);
         GameObjectManager.instance.recycle(Enemy.class);
         this.setupPlayer();
+        GameObjectManager.instance.recycle(Demo.class);
         this.clip = Utils.loadAudio("resources/audio/shot.wav");
 //        this.clip.loop(-1);
 //        this.clip.start();

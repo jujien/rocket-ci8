@@ -23,7 +23,6 @@ public class Enemy extends GameObject implements PhysicBody {
         this.velocity = new Vector2D();
         this.boxCollider = new BoxCollider(20, 20);
         this.enemyShoot = new EnemyAttack();
-        this.configAction();
     }
 
 
