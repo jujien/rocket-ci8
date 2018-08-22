@@ -87,4 +87,9 @@ public class GameObjectManager {
 
     }
 
+    public void clear() {
+        this.list.clear();
+        this.tempList.clear();
+    }
+
 }
