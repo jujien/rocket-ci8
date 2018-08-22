@@ -3,7 +3,6 @@ package game.enemyfollow;
 import base.GameObject;
 import base.GameObjectManager;
 import base.Vector2D;
-import game.player.BulletPlayer;
 import game.player.Player;
 import physic.BoxCollider;
 import physic.PhysicBody;

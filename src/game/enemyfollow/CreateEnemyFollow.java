@@ -12,7 +12,6 @@ import java.util.Random;
 
 public class CreateEnemyFollow extends GameObject {
 
-    private FrameCounter frameCounter = new FrameCounter(400);
     private Random random = new Random();
 
     public CreateEnemyFollow() {
@@ -24,7 +23,7 @@ public class CreateEnemyFollow extends GameObject {
                 new LimitAction(
                         70,
                         new SequenceAction(
-                                new WaitAction(400),
+                                new WaitAction(40),
                                 new ActionAdapter() {
                                     @Override
                                     public boolean run(GameObject owner) {
