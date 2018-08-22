@@ -14,16 +14,17 @@ public class EnemyAttack implements EnemyShoot {
 
     @Override
     public void run(Enemy enemy) {
-        if (this.frameCounter.run()) {
-            for (double angle = 0.0; angle < 360.0; angle += 360.0 / 15) {
-                BulletEnemy bulletEnemy = new BulletEnemy();
-                bulletEnemy.position.set(enemy.position);
-                bulletEnemy.velocity.set(
-                        (new Vector2D(2, 0)).rotate(angle)
-                );
-                GameObjectManager.instance.add(bulletEnemy);
-            }
-            this.frameCounter.reset();
+        for (double angle = 0.0; angle < 360.0; angle += 360.0 / 15) {
+            BulletEnemy bulletEnemy = new BulletEnemy();
+            bulletEnemy.position.set(enemy.position);
+            bulletEnemy.velocity.set(
+                    (new Vector2D(2, 0)).rotate(angle)
+            );
+            GameObjectManager.instance.add(bulletEnemy);
         }
+//        if (this.frameCounter.run()) {
+//
+//            this.frameCounter.reset();
+//        }
     }
 }
